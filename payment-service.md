@@ -276,13 +276,15 @@ Stores the **current/latest state** of a payment. One record per payment.
 | currency | Currency code |
 | status | Current payment status (INITIATED, PENDING, SUCCESS, FAILED, CANCELLED, EXPIRED) |
 | gateway_url | Redirect URL returned by gateway |
-| booking_reference | Airline PNR |
+| order_locator | Airline PNR |
+| order_contact_name | Contact name of the order |
 | expiry_datetime | Payment expiry datetime |
 | retry_count | Number of inquiry retry attempts |
 | next_retry_at | Next scheduled retry time |
 | last_retry_at | Last retry timestamp |
 | last_error_code | Latest gateway/system error code |
 | last_error_message | Latest gateway/system error message |
+| instance_name | masg-10dspmwcap10, masg-1dspmwcap10, mahk-2dspmwca10 to handle Preprod, Prod, Dr environment |
 | created_at | Record creation timestamp |
 | updated_at | Last update timestamp |
 | completed_at | Payment completed timestamp (nullable) |
@@ -334,7 +336,7 @@ Example query:
 ```sql
 SELECT *
 FROM Payment
-WHERE status IN ('PENDING', 'UNKNOWN')
+WHERE status IN ('PENDING', 'UNKNOWN') AND instance_name = 'masg-1dspmwcap10'
   AND next_retry_at <= CURRENT_TIMESTAMP
   AND retry_count < 5;
 ```
