@@ -19,7 +19,7 @@ The Payment Service uses the Session Token to retrieve:
 - booking information or any additional information required to process the payment
 
 ---
-
+<!--
 # Overall Flow
 
 ```text
@@ -60,7 +60,7 @@ Gateway Callback             Browser Redirect
                 ▼
         Return payment result
 ```
-
+-->
 ---
 
 # Overall custom payment flow diagram
@@ -253,3 +253,172 @@ GET /payment/booking/method
 GET /payment/check-in/method
 GET /payment/manage-booking/method
 ```
+
+---
+# Payment Service Database Design
+
+## 1. Payment
+
+Stores the **current/latest state** of a payment. One record per payment.
+
+| Column | Description |
+|---------|-------------|
+| payment_id | Internal UUID |
+| order_no | Merchant order number |
+| office_id | Office ID |
+| gateway | Payment gateway (e.g. 2C2P) |
+| gateway_payment_id | Payment ID returned by gateway |
+| gateway_transaction_id | Transaction ID returned by gateway (if any) |
+| payment_category | ECOM |
+| payment_type | WALLET |
+| channel_code | ALIPAY |
+| amount | Payment amount |
+| currency | Currency code |
+| status | Current payment status (INITIATED, PENDING, SUCCESS, FAILED, CANCELLED, EXPIRED) |
+| gateway_url | Redirect URL returned by gateway |
+| booking_reference | Airline PNR |
+| expiry_datetime | Payment expiry datetime |
+| retry_count | Number of inquiry retry attempts |
+| next_retry_at | Next scheduled retry time |
+| last_retry_at | Last retry timestamp |
+| last_error_code | Latest gateway/system error code |
+| last_error_message | Latest gateway/system error message |
+| created_at | Record creation timestamp |
+| updated_at | Last update timestamp |
+| completed_at | Payment completed timestamp (nullable) |
+
+---
+
+## 2. PaymentActivity
+
+Stores the **complete history** of all payment-related events.
+
+One payment can have multiple activity records.
+
+| Column | Description |
+|---------|-------------|
+| activity_id | Internal UUID |
+| payment_id | FK to Payment.payment_id |
+| activity_type | Event type |
+| source | DSPMW / CALLBACK / INQUIRY / RETRY_JOB / MANUAL |
+| status_before | Previous payment status |
+| status_after | New payment status |
+| gateway_status | Raw status returned by gateway |
+| gateway_code | Gateway response/error code |
+| gateway_message | Gateway response/error message |
+| request_payload | Request JSON (optional) |
+| response_payload | Response JSON (optional) |
+| created_at | Activity timestamp |
+
+### Example Activity Types
+
+- CREATE_PAYMENT
+- GATEWAY_RESPONSE
+- CALLBACK_RECEIVED
+- CALLBACK_PROCESSED
+- STATUS_CHANGED
+- INQUIRY
+- RETRY_STARTED
+- RETRY_SUCCESS
+- RETRY_FAILED
+- MANUAL_UPDATE
+
+---
+
+# Retry Job Design
+
+The retry job should **read from the Payment table**, not the PaymentActivity table.
+
+Example query:
+
+```sql
+SELECT *
+FROM Payment
+WHERE status IN ('PENDING', 'UNKNOWN')
+  AND next_retry_at <= CURRENT_TIMESTAMP
+  AND retry_count < 5;
+```
+
+Retry flow:
+
+1. Read eligible payments.
+2. Call Payment Gateway Inquiry API.
+3. Update Payment table with latest status.
+4. Increment `retry_count`.
+5. Update `next_retry_at` if another retry is required.
+6. Insert a PaymentActivity record for the retry attempt.
+
+---
+
+# Status Flow
+
+```text
+INITIATED
+    │
+    ▼
+PENDING
+    │
+    ├────────► SUCCESS
+    │
+    ├────────► FAILED
+    │
+    ├────────► CANCELLED
+    │
+    └────────► EXPIRED
+```
+
+---
+
+# Overall Architecture
+
+```text
+                 Create Payment
+                        │
+                        ▼
+                  Payment Table
+             (Current Payment State)
+                        │
+                        │ 1 : N
+                        ▼
+              PaymentActivity Table
+          (Complete Audit / Event History)
+
+                        ▲
+                        │
+      ┌─────────────────┼──────────────────┐
+      │                 │                  │
+      │                 │                  │
+ Gateway Response   Gateway Callback   Inquiry Retry Job
+```
+
+## Design Principles
+
+### Payment Table
+
+- One row per payment.
+- Always represents the latest payment status.
+- Optimized for API queries.
+- Contains retry scheduling information.
+
+### PaymentActivity Table
+
+- Append-only history.
+- Never update existing records.
+- Used for auditing and troubleshooting.
+- Records every interaction with the payment gateway and background jobs.
+
+### Retry Job
+
+- Reads from the Payment table.
+- Uses:
+  - `status`
+  - `retry_count`
+  - `next_retry_at`
+- Writes:
+  - Updated Payment record.
+  - New PaymentActivity record.
+
+This keeps operational queries fast while maintaining a complete audit trail.
+
+
+
