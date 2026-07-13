@@ -233,7 +233,7 @@ If payment fails:
 | `/payments` | POST | Create a payment and return the Payment Gateway URL | how to generate paymentId?
 | `/payments/callback` | POST | Payment Gateway callback to update payment status | Need to check the payload received from payment gateway
 | `/payments/{paymentId}` | GET | Get payment status from payment gateway | Need to check how to get payment status from 2c2p with provided paymentId
-| `/payments/confirmation` | POST | Frontend verifies the final payment status | call dapi payment-records/confirmation
+~~| `/payments/confirmation` | POST | Frontend verifies the final payment status | call dapi payment-records/confirmation~~
 
 
 ---
