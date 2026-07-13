@@ -226,7 +226,7 @@ If payment fails:
 | `/payments/methods` | GET | Retrieve available payment methods | payment method condition can include value like officeId, pointOfSales and etc
 | `/payments` | POST | Create a payment and return the Payment Gateway URL | how to generate paymentId?
 | `/payments/callback` | POST | Payment Gateway callback to update payment status | Need to check the payload received from payment gateway
-| `/payment/{paymentId}` | GET | Get payment status from payment gateway | Need to check how to get payment status from 2c2p with provided paymentId
+| `/payments/{paymentId}` | GET | Get payment status from payment gateway | Need to check how to get payment status from 2c2p with provided paymentId
 | `/payments/confirmation` | POST | Frontend verifies the final payment status | call dapi payment-records/confirmation
 
 
