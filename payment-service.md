@@ -281,6 +281,7 @@ Stores the **current/latest state** of a payment. One record per payment.
 | amount | Payment amount |
 | currency | Currency code |
 | status | Current payment status (INITIATED, PENDING, SUCCESS, FAILED, CANCELLED, EXPIRED) |
+| ticket_issued | null/true/false if POST payment-record (EXT) to DAPI is successful after payment success |
 | gateway_url | Redirect URL returned by gateway |
 | order_locator | Airline PNR |
 | order_contact_name | Contact name of the order |
