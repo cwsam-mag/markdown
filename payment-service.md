@@ -197,7 +197,8 @@ POST /payments/confirmation
 - Verify the latest payment status
 - Return the payment result to the frontend
 
-### Example Response
+<details>
+### <sumary>Example Response</sumary>
 
 Success
 
@@ -214,6 +215,7 @@ Failed
   "status": "FAILED"
 }
 ```
+</details>
 
 ---
 
@@ -265,7 +267,7 @@ GET /payment/check-in/method
 GET /payment/manage-booking/method
 ```
 <details>
-<summary>## Admin rules</summary>
+## <summary>Admin rules</summary>
 ```json
 {
   "data": {
