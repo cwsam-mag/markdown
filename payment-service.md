@@ -268,6 +268,7 @@ GET /payment/manage-booking/method
 ```
 <details>
 ## <summary>Admin rules</summary>
+  
 ```json
 {
   "data": {
