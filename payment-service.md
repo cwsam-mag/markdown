@@ -98,21 +98,22 @@ GET /payments/methods
 Session-Token: <token>
 ```
 
-### Response
-
-```json
-[
-  {
-    "code": "WECHAT",
-    "name": "WeChat Pay"
-  },
-  {
-    "code": "ALIPAY",
-    "name": "Alipay"
-  }
-]
-```
-
+<details>
+  <summary><h3>Response</h3></summary>
+  
+  ```json
+  [
+    {
+      "code": "WECHAT",
+      "name": "WeChat Pay"
+    },
+    {
+      "code": "ALIPAY",
+      "name": "Alipay"
+    }
+  ]
+  ```
+</details>
 ### Notes
 
 The Payment Service determines the available payment methods based on information from the Session Token, such as:
@@ -133,24 +134,26 @@ Called after the user selects a payment method.
 ```http
 POST /payments
 ```
+<details>
+  <summary>Request</summary>
 
-### Request
-
-```json
-{
-  "paymentMethod": "WECHAT"
-}
-```
-
-### Response
-
-```json
-{
-  "paymentId": "123456",
-  "redirectUrl": "https://payment-gateway/..."
-}
-```
-
+  ```json
+  {
+    "paymentMethod": "WECHAT"
+  }
+  ```
+</details>
+  
+<details>
+    <summary><h3>Response</h3></summary>
+  
+  ```json
+  {
+    "paymentId": "123456",
+    "redirectUrl": "https://payment-gateway/..."
+  }
+  ```
+</details>
 ### Flow
 
 1. Frontend calls the API.
@@ -198,23 +201,23 @@ POST /payments/confirmation
 - Return the payment result to the frontend
 
 <details>
-### <sumary>Example Response</sumary>
+  <summary><h3>Example Response</h3><</summary>
 
-Success
-
-```json
-{
-  "status": "SUCCESS"
-}
-```
-
-Failed
-
-```json
-{
-  "status": "FAILED"
-}
-```
+  Success
+  
+  ```json
+  {
+    "status": "SUCCESS"
+  }
+  ```
+  
+  Failed
+  
+  ```json
+  {
+    "status": "FAILED"
+  }
+  ```
 </details>
 
 ---
@@ -267,193 +270,194 @@ GET /payment/check-in/method
 GET /payment/manage-booking/method
 ```
 <details>
-## <summary>Admin rules</summary>
+  <summary><h2><Admin rules</h2><</summary>
   
-```json
-{
-  "data": {
-    "paymentMethods": {
-      "attributes": {
-        "amadeusCheckoutSdk": {
-          "shouldDisplay": true,
-          "attributes": {
-            "card": {
-              "shouldDisplay": true,
-              "attributes": {
-                "label_mop_creditcard": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_mop_creditcardtok": {
-                  "shouldDisplay": true,
-                  "attributes": {}
+  ```json
+  {
+    "data": {
+      "paymentMethods": {
+        "attributes": {
+          "amadeusCheckoutSdk": {
+            "shouldDisplay": true,
+            "attributes": {
+              "card": {
+                "shouldDisplay": true,
+                "attributes": {
+                  "label_mop_creditcard": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_mop_creditcardtok": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  }
                 }
-              }
-            },
-            "onlineBanking": {
-              "shouldDisplay": true,
-              "attributes": {
-                "label_amop_cimbclicks": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_maybank": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_fpx": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_cimbniaga": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_enets": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "Internet Banking": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_ideal": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_netbanking": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_poli": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_rupay": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_upi": {
-                  "shouldDisplay": true,
-                  "attributes": {}
+              },
+              "onlineBanking": {
+                "shouldDisplay": true,
+                "attributes": {
+                  "label_amop_cimbclicks": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_maybank": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_fpx": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_cimbniaga": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_enets": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "Internet Banking": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_ideal": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_netbanking": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_poli": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_rupay": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_upi": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  }
                 }
-              }
-            },
-            "eWallet": {
-              "shouldDisplay": true,
-              "attributes": {
-                "label_amop_boost": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_grabpay": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_touchngo": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_alipay": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_googlepay": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_mobikwik": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_paytm": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_promptpay": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_upiqr": {
-                  "shouldDisplay": true,
-                  "attributes": {}
+              },
+              "eWallet": {
+                "shouldDisplay": true,
+                "attributes": {
+                  "label_amop_boost": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_grabpay": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_touchngo": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_alipay": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_googlepay": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_mobikwik": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_paytm": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_promptpay": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_upiqr": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  }
                 }
-              }
-            },
-            "installment": {
-              "shouldDisplay": true,
-              "attributes": {
-                "label_amop_installmentpayment": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_hoolah": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_humm": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_installmen": {
-                  "shouldDisplay": true,
-                  "attributes": {}
+              },
+              "installment": {
+                "shouldDisplay": true,
+                "attributes": {
+                  "label_amop_installmentpayment": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_hoolah": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_humm": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_installmen": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  }
                 }
-              }
-            },
-            "others": {
-              "shouldDisplay": true,
-              "attributes": {
-                "label_amop_paypal": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_cup": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_applepay": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_fnpl": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_iatapay": {
-                  "shouldDisplay": true,
-                  "attributes": {}
-                },
-                "label_amop_wechat": {
-                  "shouldDisplay": true,
-                  "attributes": {}
+              },
+              "others": {
+                "shouldDisplay": true,
+                "attributes": {
+                  "label_amop_paypal": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_cup": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_applepay": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_fnpl": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_iatapay": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  },
+                  "label_amop_wechat": {
+                    "shouldDisplay": true,
+                    "attributes": {}
+                  }
                 }
               }
             }
-          }
-        },
-        "customPayment": {
-          "shouldDisplay": true,
-          "notificationURLs": {
-            "failedURL": "http://example-failed.com",
-            "confirmationURL": "http://example-confirmation.com",
-            "cancellationURL": "http://example-cancellation.com",
-            "backendURL": "http://example-callback.com"
           },
-          "attribute": {
-            "alipay": {
-              "shouldDisplay": true,
-              "attributes": {
-                "paymentGateway": "2c2p",
-                "endpoint": "https://core.demo-paco.2c2p.com/api/2.0/Payment/nonUI"
-              }
+          "customPayment": {
+            "shouldDisplay": true,
+            "notificationURLs": {
+              "failedURL": "http://example-failed.com",
+              "confirmationURL": "http://example-confirmation.com",
+              "cancellationURL": "http://example-cancellation.com",
+              "backendURL": "http://example-callback.com"
             },
-            "weChatPay": {
-              "shouldDisplay": true,
-              "attributes": {
+            "attribute": {
+              "alipay": {
                 "shouldDisplay": true,
-                "paymentGateway": "2c2p",
-                "endpoint": "https://core.demo-paco.2c2p.com/api/2.0/Payment/nonUI"
+                "attributes": {
+                  "paymentGateway": "2c2p",
+                  "endpoint": "https://core.demo-paco.2c2p.com/api/2.0/Payment/nonUI"
+                }
+              },
+              "weChatPay": {
+                "shouldDisplay": true,
+                "attributes": {
+                  "shouldDisplay": true,
+                  "paymentGateway": "2c2p",
+                  "endpoint": "https://core.demo-paco.2c2p.com/api/2.0/Payment/nonUI"
+                }
               }
             }
           }
@@ -461,8 +465,7 @@ GET /payment/manage-booking/method
       }
     }
   }
-}
-```
+  ```
 </details>
 
 ---
