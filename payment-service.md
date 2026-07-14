@@ -541,6 +541,17 @@ One payment can have multiple activity records.
 - MANUAL_UPDATE
 
 ---
+### Do we need database table?
+
+| Question | Payment Table | PaymentActivity | Application Insights |
+|----------|:-------------:|:---------------:|:--------------------:|
+| What is the payment status now? | ✅ | ❌ | ❌ |
+| What happened to this payment? | ❌ | ✅ | Partially |
+| Why did the API fail? | ❌ | ❌ | ✅ |
+| Which container processed it? | ❌ | ❌ | ✅ |
+| How long did 2C2P take to respond? | ❌ | ❌ | ✅ |
+| Can I reconcile payments with Finance? | ✅ | ✅ | ❌ |
+| Can I recover after restart? | ✅ | ✅ | ❌ |
 
 # Retry Job Design
 
