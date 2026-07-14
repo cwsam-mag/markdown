@@ -2,7 +2,7 @@
 
 ## Objective
 
-Provide a common Payment Service that can be used by multiple applications (Booking, Check-in, Manage Booking).
+Provide a common Payment Service that can be used by multiple applications (Booking, Check-in, Manage Booking, Jounify and more).
 
 ---
 
