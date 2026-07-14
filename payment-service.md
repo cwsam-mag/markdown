@@ -270,7 +270,7 @@ GET /payment/check-in/method
 GET /payment/manage-booking/method
 ```
 <details>
-  <summary><h2><Admin rules</h2></summary>
+  <summary><h2>Admin rules</h2></summary>
   
   ```json
   {
