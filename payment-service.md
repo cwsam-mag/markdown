@@ -201,7 +201,7 @@ POST /payments/confirmation
 - Return the payment result to the frontend
 
 <details>
-  <summary><h3>Example Response</h3><</summary>
+  <summary><h3>Example Response</h3></summary>
 
   Success
   
@@ -270,7 +270,7 @@ GET /payment/check-in/method
 GET /payment/manage-booking/method
 ```
 <details>
-  <summary><h2><Admin rules</h2><</summary>
+  <summary><h2><Admin rules</h2></summary>
   
   ```json
   {
