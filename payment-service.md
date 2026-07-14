@@ -11,12 +11,14 @@ Provide a common Payment Service that can be used by multiple applications (Book
 A **Session Token** is generated during Booking / Check-in / Manage Booking initialization.
 
 All Payment Service APIs require the Session Token in the request header.
+- need to revise this, as Client such as journify will not have the IBE/SSCI Session-Token
 
 The Payment Service uses the Session Token to retrieve:
 
 - officeId
 - pointOfSales
 - booking information or any additional information required to process the payment
+- client without the Session-Token, they can pass in these data via payload
 
 ---
 <!--
@@ -262,6 +264,203 @@ GET /payment/booking/method
 GET /payment/check-in/method
 GET /payment/manage-booking/method
 ```
+<details>
+<summary>## Admin rules</summary>
+```json
+{
+  "data": {
+    "paymentMethods": {
+      "attributes": {
+        "amadeusCheckoutSdk": {
+          "shouldDisplay": true,
+          "attributes": {
+            "card": {
+              "shouldDisplay": true,
+              "attributes": {
+                "label_mop_creditcard": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_mop_creditcardtok": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                }
+              }
+            },
+            "onlineBanking": {
+              "shouldDisplay": true,
+              "attributes": {
+                "label_amop_cimbclicks": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_maybank": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_fpx": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_cimbniaga": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_enets": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "Internet Banking": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_ideal": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_netbanking": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_poli": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_rupay": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_upi": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                }
+              }
+            },
+            "eWallet": {
+              "shouldDisplay": true,
+              "attributes": {
+                "label_amop_boost": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_grabpay": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_touchngo": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_alipay": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_googlepay": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_mobikwik": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_paytm": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_promptpay": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_upiqr": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                }
+              }
+            },
+            "installment": {
+              "shouldDisplay": true,
+              "attributes": {
+                "label_amop_installmentpayment": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_hoolah": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_humm": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_installmen": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                }
+              }
+            },
+            "others": {
+              "shouldDisplay": true,
+              "attributes": {
+                "label_amop_paypal": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_cup": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_applepay": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_fnpl": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_iatapay": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                },
+                "label_amop_wechat": {
+                  "shouldDisplay": true,
+                  "attributes": {}
+                }
+              }
+            }
+          }
+        },
+        "customPayment": {
+          "shouldDisplay": true,
+          "notificationURLs": {
+            "failedURL": "http://example-failed.com",
+            "confirmationURL": "http://example-confirmation.com",
+            "cancellationURL": "http://example-cancellation.com",
+            "backendURL": "http://example-callback.com"
+          },
+          "attribute": {
+            "alipay": {
+              "shouldDisplay": true,
+              "attributes": {
+                "paymentGateway": "2c2p",
+                "endpoint": "https://core.demo-paco.2c2p.com/api/2.0/Payment/nonUI"
+              }
+            },
+            "weChatPay": {
+              "shouldDisplay": true,
+              "attributes": {
+                "shouldDisplay": true,
+                "paymentGateway": "2c2p",
+                "endpoint": "https://core.demo-paco.2c2p.com/api/2.0/Payment/nonUI"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+</details>
 
 ---
 # Payment Service Database Design
