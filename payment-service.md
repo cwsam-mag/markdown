@@ -478,13 +478,13 @@ Stores the **current/latest state** of a payment. One record per payment.
 | Column | Description |
 |---------|-------------|
 | payment_id | Internal UUID |
-| order_no | Merchant order number |
+| order_no | Merchant order unique number |
 | office_id | Office ID |
 | gateway | Payment gateway (e.g. 2C2P) |
 | gateway_payment_id | Payment ID returned by gateway |
 | gateway_transaction_id | Transaction ID returned by gateway (if any) |
 | payment_category | ECOM |
-| payment_type | WALLET |
+| payment_type | WALLET / POINTRedeem |
 | channel_code | ALIPAY |
 | amount | Payment amount |
 | currency | Currency code |
@@ -492,10 +492,10 @@ Stores the **current/latest state** of a payment. One record per payment.
 | ticket_issued | null/true/false if POST payment-record (EXT) to DAPI is successful after payment success |
 | gateway_url | Redirect URL returned by gateway |
 | order_locator | Airline PNR |
+| order_created_date | Merchant order created date |
 | order_contact_name | Contact name of the order |
 | expiry_datetime | Payment expiry datetime |
 | retry_count | Number of inquiry retry attempts |
-| next_retry_at | Next scheduled retry time |
 | last_retry_at | Last retry timestamp |
 | last_error_code | Latest gateway/system error code |
 | last_error_message | Latest gateway/system error message |
@@ -504,6 +504,7 @@ Stores the **current/latest state** of a payment. One record per payment.
 | updated_at | Last update timestamp |
 | completed_at | Payment completed timestamp (nullable) |
 
+-- type (IBE / BOOKING / SSCI / NON IBE, source?)
 ---
 
 ## 2. PaymentActivity
