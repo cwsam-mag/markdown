@@ -478,19 +478,31 @@ Stores the **current/latest state** of a payment. One record per payment.
 | Column | Description |
 |---------|-------------|
 | payment_id | Internal UUID |
-| order_no | Merchant order unique number |
+| txn_date | yyyymmdd |
+| order_no | Merchant order number / IATA one order id |
+| merchant_ref| merchant unique payment id, idempotency merchant_ref + merchant_id |
 | office_id | Office ID |
+| merchant_id | dsp mid |
+| merchant_name | dsp merchant name |
 | gateway | Payment gateway (e.g. 2C2P) |
+| gateway_mid | Payment gateway mid (e.g. 2C2P) |
 | gateway_payment_id | Payment ID returned by gateway |
 | gateway_transaction_id | Transaction ID returned by gateway (if any) |
 | payment_category | ECOM |
 | payment_type | WALLET / POINTRedeem |
 | channel_code | ALIPAY |
-| amount | Payment amount |
-| currency | Currency code |
-| status | Current payment status (INITIATED, PENDING, SUCCESS, FAILED, CANCELLED, EXPIRED) |
-| ticket_issued | null/true/false if POST payment-record (EXT) to DAPI is successful after payment success |
-| gateway_url | Redirect URL returned by gateway |
+| pay_amount | Payment amount |
+| ori_amount | Original amount |
+| pay_currency | Payment Currency code |
+| ori_currency | Original Currency code |
+| status | Current payment status (INITIATED, PENDING, SUCCESS, FAILED, EXPIRED) REFUND/REVERSAL another table |
+| sub_status |  |
+| gateway_status | status from 2c2p |
+| gateway_status_code | status code from 2c2p |
+| gateway_status_desc | status desc from 2c2p |
+| fullfillment | null/true/false if POST payment-record (EXT) to DAPI is successful after payment success |
+| gateway_url | Redirect URL returned by gateway (not mandatory) |
+| platform | web, mobile_browser, mobile_ios, mobile_android, mobile_huawei |
 | order_locator | Airline PNR |
 | order_created_date | Merchant order created date |
 | order_contact_name | Contact name of the order |
@@ -502,7 +514,7 @@ Stores the **current/latest state** of a payment. One record per payment.
 | instance_name | masg-10dspmwcap10, masg-1dspmwcap10, mahk-2dspmwca10 to handle Preprod, Prod, Dr environment |
 | created_at | Record creation timestamp |
 | updated_at | Last update timestamp |
-| completed_at | Payment completed timestamp (nullable) |
+| completed_at | Payment completed timestamp (nullable), on succesful/failed/expired |
 
 -- type (IBE / BOOKING / SSCI / NON IBE, source?)
 ---
