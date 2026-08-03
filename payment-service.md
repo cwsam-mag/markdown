@@ -495,7 +495,7 @@ Stores the **current/latest state** of a payment. One record per payment.
 | ori_amount | Original amount |
 | pay_currency | Payment Currency code |
 | ori_currency | Original Currency code |
-| status | Current payment status (INITIATED, PENDING, SUCCESS, FAILED, EXPIRED) REFUND/REVERSAL another table |
+| status | Current payment status (INITIATED, PENDING, SUCCESS, FAILED, EXPIRED) REFUND/REVERSAL another table, post to data brick on SUCCESS, FAILED, EXPIRED |
 | sub_status |  |
 | gateway_status | status from 2c2p |
 | gateway_status_code | status code from 2c2p |
