@@ -504,9 +504,11 @@ Stores the **current/latest state** of a payment. One record per payment.
 | gateway_url | Redirect URL returned by gateway (not mandatory) |
 | platform | web, mobile_browser, mobile_ios, mobile_android, mobile_huawei |
 | order_locator | Airline PNR |
-| order_created_date | Merchant order created date |
+| order_created_date | Original merchant order created date (not MMB order data) |
 | order_contact_name | Contact name of the order |
-| expiry_datetime | Payment expiry datetime |
+| order_contact_no | Contact phone no of the order |
+| order_contact_email | Contact email of the order |
+| expiry_datetime | DSP Payment expiry datetime, Payment Robot will check this field and set to expired during retry |
 | retry_count | Number of inquiry retry attempts |
 | last_retry_at | Last retry timestamp |
 | last_error_code | Latest gateway/system error code |
